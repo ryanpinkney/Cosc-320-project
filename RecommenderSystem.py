@@ -4,8 +4,8 @@ def algorithmAforProject(X):
 def algorithmBforProject(X):
     return # to be implemented
 
-def getSimilarityBetweenTwoUsersNaive:
+def getSimilarityBetweenTwoUsersNaive():
     return # to be implemented (parameters will be figured out)
 
-def getSimilarityBetweenTwoUsersEfficient:
+def getSimilarityBetweenTwoUsersEfficient():
     return # to be implemented (parameters will be figured out)
