@@ -65,6 +65,7 @@ def algorithmAforProject(inputData):
     target = inputData[targetName]
     target_likes = target["likes"]
     target_dislikes = target["dislikes"]
+    
     #for loop checks the max_users number of highest similarity 
     for i in list(sortedScores)[0:max_users]:
         #load the user data
