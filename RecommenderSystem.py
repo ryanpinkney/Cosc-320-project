@@ -1,5 +1,8 @@
+# imports
 import json
+import random
 
+# data definition
 basicTestData = {
     "targetUser": "userNameOfTargetUser",
     "user1": {
@@ -16,35 +19,40 @@ basicTestData = {
     }
 }
 
+# methods definition
+
 
 def algorithmAforProject(inputData):
-        # define an empty array to store the similarity scores between all the users
-    similarityScores = []
+    # define an empty array to store the similarity scores between all the users
+    similarityScores = dict()
 
-    # store the target user's likes and dislikes in variables
-    tarUserLik = inputData[inputData["targetUser"]]["likes"]
-    tarUserDislik = inputData[inputData["targetUser"]]["dislikes"]
-
-    # iterate through all the users and compute the similarity of each user with the target user
+    # iterate through all the users
     for key in inputData:
-        if(key != "targetUser"):  # skip the first key
-            otherUserLikes = inputData[key]["likes"]
-            otherUserDislikes = inputData[key]["dislikes"]
+        # skip the first key and the target user
+        if(key != "targetUser" and key != inputData["targetUser"]):
+            # compute the similarity score between both users
             similarityScore = getSimilarityBetweenTwoUsersNaive(
-                tarUserLik, tarUserLik, otherUserLikes, otherUserDislikes)
-				
+                inputData["targetUser"], inputData[key])
+
+            # append to the similarityScores dictionary a {otherUsername: score} pair
+            similarityScores[key] = similarityScore
+
+    # sort similarityScores by score, descending. Sorting code from https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+    sortedScores = {k: v for k, v in sorted(
+        similarityScores.items(), key=lambda item: item[1], reverse=True)}
 
 
 def algorithmBforProject(inputData):
     return  # to be implemented
 
 
-def getSimilarityBetweenTwoUsersNaive(targetUserLikes, targetUserDislikes, otherUserLikes, otherUserDisklikes):
-    return 2
+def getSimilarityBetweenTwoUsersNaive(user1, user2):
+    return random.randrange(1, 10)  # to be implemented
 
 
-def getSimilarityBetweenTwoUsersEfficient(targetUserLikes, targetUserDislikes, otherUserLikes, otherUserDisklikes):
-    return 2
+def getSimilarityBetweenTwoUsersEfficient(user1, user2):
+    return random.randrange(1, 10)  # to be implemented
 
 
+# methods calling
 algorithmAforProject(basicTestData)
