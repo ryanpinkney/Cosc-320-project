@@ -1,3 +1,5 @@
+import json
+
 basicTestData = {
     "targetUser": "userNameOfTargetUser",
     "user1": {
@@ -16,11 +18,21 @@ basicTestData = {
 
 
 def algorithmAforProject(inputData):
+        # define an empty array to store the similarity scores between all the users
     similarityScores = []
-    targetUserLikes = inputData[inputData["targetUser"]]["likes"]
-    targetUserDislikes = inputData[inputData["targetUser"]]["dislikes"]
-    # for i in range(0, len(inputData)):
-    #     int similarityScore = getSimilarityBetweenTwoUsersNaive()
+
+    # store the target user's likes and dislikes in variables
+    tarUserLik = inputData[inputData["targetUser"]]["likes"]
+    tarUserDislik = inputData[inputData["targetUser"]]["dislikes"]
+
+    # iterate through all the users and compute the similarity of each user with the target user
+    for key in inputData:
+        if(key != "targetUser"):  # skip the first key
+            otherUserLikes = inputData[key]["likes"]
+            otherUserDislikes = inputData[key]["dislikes"]
+            similarityScore = getSimilarityBetweenTwoUsersNaive(
+                tarUserLik, tarUserLik, otherUserLikes, otherUserDislikes)
+				
 
 
 def algorithmBforProject(inputData):
@@ -28,11 +40,11 @@ def algorithmBforProject(inputData):
 
 
 def getSimilarityBetweenTwoUsersNaive(targetUserLikes, targetUserDislikes, otherUserLikes, otherUserDisklikes):
-    return  # to be implemented (parameters will be figured out)
+    return 2
 
 
 def getSimilarityBetweenTwoUsersEfficient(targetUserLikes, targetUserDislikes, otherUserLikes, otherUserDisklikes):
-    return  # to be implemented (parameters will be figured out)
+    return 2
 
 
 algorithmAforProject(basicTestData)
