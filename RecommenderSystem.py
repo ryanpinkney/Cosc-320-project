@@ -49,8 +49,6 @@ def algorithmAforProject(inputData):
             similarityScore = getSimilarityEfficient(inputData[targetName], inputData[key])
             # append to the similarityScores dictionary a {otherUsername: score} pair
             similarityScores[key] = similarityScore
-    
-    print(similarityScores)
 
     # sort similarityScores by score, descending. Sorting code from https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
     sortedScores = {k: v for k, v in sorted(
@@ -65,20 +63,23 @@ def algorithmAforProject(inputData):
     target = inputData[targetName]
     target_likes = target["likes"]
     target_dislikes = target["dislikes"]
+
+    # lookup table for items the target name has already rated or existing recommendations
+    lookup = {k: 1 for k in target_likes + target_dislikes}
     
-    #for loop checks the max_users number of highest similarity 
-    for i in list(sortedScores)[0:max_users]:
-        #load the user data
-        user = inputData[i]
+    # for loop checks the max_users number of highest similarity 
+    for key in list(sortedScores)[0:max_users]:
+        # load the user data
+        user = inputData[key]
         user_likes = user["likes"]
-        #ensure this element has not already been seen by the target
-        for j in user_likes:
-            if(j not in target_likes and j not in target_dislikes):
-                #ensures the recommendation list does not get multiples
-                if(j not in recommendation):
-                    recommendation.append(j)
-                    
-    #finally returns the recommendation list
+        for like in user_likes:
+            # ensure this element has not already been seen by the target
+            if (like not in lookup):
+                recommendation.append(like)
+                # ensures the recommendation list does not get multiples
+                lookup[like] = 1
+    
+    # finally returns the recommendation list
     print(recommendation)
     return recommendation
 
