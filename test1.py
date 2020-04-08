@@ -18,7 +18,7 @@ print(time.process_time() - start2)
 #some code convertign csv to json
 
 
-# data_set_names = ["Pet_Supplies"]
+# data_set_names = ["Magazine_Subscriptions","Magazine_Subscriptions","Patio_Lawn_and_Garden"]
 # for set_name in data_set_names:
 #     #The following code will read .csv file into the dictionary 'data'as shown below
 #     #'userID': {"likes":likes_array,"dislikes":dislikes_array}
@@ -45,4 +45,4 @@ print(time.process_time() - start2)
 #     #write into ratings_Amazon_Instant_Video.json
 #     with open(set_name+".json","w") as jsonFile:
 #         jsonFile.write(json.dumps(data,indent=4))
-#     #'user1': {'likes': ['NJKNO', 'HHNONI', 'BNJBIO'], 'dislikes': ['HJKBK', 'NJUINIO']}
+    #'user1': {'likes': ['NJKNO', 'HHNONI', 'BNJBIO'], 'dislikes': ['HJKBK', 'NJUINIO']}

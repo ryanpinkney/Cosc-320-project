@@ -146,17 +146,17 @@ def getSimilarityNaive(user1, user2):
     udd = unionNaive(user1["dislikes"], user2["dislikes"])
 
     # return the computed similarity according to the formula
-    return (len(ill) + len(idd) - len(ild) - len(idl)) / len(unionNaive(ull, udd))
+    return (ill + idd - ild - idl) / len(unionNaive(ull, udd))
 
 #the below has runtime O(k^2) k is the longest likes/dislikes of either user
 def intersectionNaive(user1,user2):
-    Iresult = []
+    intersection = 0
     #for each item of TargetUser likes/dislikes check if the it's similar to the each item in other User
     for targetU_item in user1:
         for otherU_item in user2:
             if(targetU_item == otherU_item):
-                Iresult.append(targetU_item)
-    return Iresult
+                intersection +=1
+    return intersection
 
 
 #the above also has runtime O(k2), because the operation to check whether l is in unionResult runs in O(k) (we run a linear search), and we perform it k times.
