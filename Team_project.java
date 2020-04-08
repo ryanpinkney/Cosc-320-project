@@ -11,7 +11,7 @@ public class Team_project {
 		
 		//reading the csv files with the data on likes and dislikes
 		//this obtains data on the first user who will be given recommendations
-		File file1 = new File("Data_3.csv");
+		File file1 = new File("Data_1.csv");
 		
 		BufferedReader users = new BufferedReader(new FileReader(file1));
 		
