@@ -87,7 +87,7 @@ def algorithmAforProject(inputData):
 
 #algorithm using naive similarity method
 def algorithmBforProject(inputData):
-    # define an empty array to store the similarity scores between all the users
+# define an empty array to store the similarity scores between all the users
     similarityScores = dict()
 
     # get the name of the target user
@@ -118,7 +118,7 @@ def algorithmBforProject(inputData):
 
     # lookup table for items the target name has already rated or existing recommendations
     lookup = {k: 1 for k in target_likes + target_dislikes}
-
+    
     # for loop checks the max_users number of highest similarity 
     for key in list(sortedScores)[0:max_users]:
         # load the user data
@@ -133,6 +133,7 @@ def algorithmBforProject(inputData):
     
     # finally returns the recommendation list
     print(recommendation)
+    # print(lookup)
     return recommendation
 
 
@@ -154,15 +155,15 @@ def intersectionNaive(user1,user2):
     #for each item of TargetUser likes/dislikes check if the it's similar to the each item in other User
     for targetU_item in user1:
         for otherU_item in user2:
-            if(targetU_item == otherU_item):
+            if(otherU_item == targetU_item):
                 intersection +=1
     return intersection
 
 
 #the above also has runtime O(k2), because the operation to check whether l is in unionResult runs in O(k) (we run a linear search), and we perform it k times.
-def unionNaive(usr1,user2):    
-    #always assume usr1 is the target user 
-    unionResult = usr1
+def unionNaive(user1,user2):    
+    #always assume user1 is the target user 
+    unionResult = user1.copy()
     for otherU_item in user2:
         if otherU_item not in unionResult:
             unionResult.append(otherU_item)
@@ -217,3 +218,4 @@ def unionEfficient(arr1, arr2):
 
 # methods calling
 # algorithmAforProject(basicTestData)
+# algorithmBforProject(basicTestData)
