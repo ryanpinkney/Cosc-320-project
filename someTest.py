@@ -19,3 +19,4 @@ basicTestData = {
 basicTestData2 = '{"targetUser": "userNameOfTargetUser"}'
 
 print(basicTestData.keys())
+print(basicTestData)

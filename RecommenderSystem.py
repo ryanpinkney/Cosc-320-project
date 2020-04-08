@@ -33,7 +33,7 @@ basicTestData = {
 
 # methods definition
 
-
+#algorithm using efficient similarity algorithm
 def algorithmAforProject(inputData):
     # define an empty array to store the similarity scores between all the users
     similarityScores = dict()
@@ -83,12 +83,91 @@ def algorithmAforProject(inputData):
     print(recommendation)
     return recommendation
 
+
+#algorithm using naive similarity method
 def algorithmBforProject(inputData):
+    # define an empty array to store the similarity scores between all the users
+    similarityScores = dict()
+
+    # get the name of the target user
+    targetName = inputData["targetUser"]
+
+    # iterate through all the users
+    for key in inputData:
+        # skip the first key and the target user
+        if(key != "targetUser" and key != targetName):
+            # compute the similarity score between both users
+            similarityScore = getSimilarityNaive(inputData[targetName], inputData[key])
+            # append to the similarityScores dictionary a {otherUsername: score} pair
+            similarityScores[key] = similarityScore
+
+    # sort similarityScores by score, descending. Sorting code from https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+    sortedScores = {k: v for k, v in sorted(
+        similarityScores.items(), key=lambda item: item[1], reverse=True)}
+    
+    #this value denotes the arbitrary number of users that will add to the recommended list
+    max_users = 2
+    #recommendation array defined
+    recommendation = []
+    
+    #setup the targets data
+    target = inputData[targetName]
+    target_likes = target["likes"]
+    target_dislikes = target["dislikes"]
+
+    # lookup table for items the target name has already rated or existing recommendations
+    lookup = {k: 1 for k in target_likes + target_dislikes}
+    
+    # for loop checks the max_users number of highest similarity 
+    for key in list(sortedScores)[0:max_users]:
+        # load the user data
+        user = inputData[key]
+        user_likes = user["likes"]
+        for like in user_likes:
+            # ensure this element has not already been seen by the target
+            if (like not in lookup):
+                recommendation.append(like)
+                # ensures the recommendation list does not get multiples
+                lookup[like] = 1
+    
+    # finally returns the recommendation list
+    print(recommendation)
+    return recommendation
     return  # to be implemented
 
 
 def getSimilarityNaive(user1, user2):
-    return random.randrange(1, 10)  # to be implemented
+    # get the intersections and unions required for the similarity formula
+    ill = intersectionNaive(user1["likes"], user2["likes"])
+    idd = intersectionNaive(user1["dislikes"], user2["dislikes"])
+    ild = intersectionNaive(user1["likes"], user2["dislikes"])
+    idl = intersectionNaive(user1["dislikes"], user2["likes"])
+    ull = unionNaive(user1["likes"], user2["likes"])
+    udd = unionNaive(user1["dislikes"], user2["dislikes"])
+
+    # return the computed similarity according to the formula
+    return (len(ill) + len(idd) - len(ild) - len(idl)) / len(unionNaive(ull, udd))
+
+#the below has runtime O(k^2) k is the longest likes/dislikes of either user
+def intersectionNaive(user1,user2):
+    Iresult = []
+    #for each item of TargetUser likes/dislikes check if the it's similar to the each item in other User
+    for targetU_item in user1:
+        for otherU_item in user2:
+            if(targetU_item == otherU_item):
+                Iresult.append(targetU_item)
+    return Iresult
+
+
+#the above also has runtime O(k2), because the operation to check whether l is in unionResult runs in O(k) (we run a linear search), and we perform it k times.
+def unionNaive(usr1,user2):    
+    #always assume usr1 is the target user 
+    unionResult = usr1
+    for otherU_item in user2:
+        if not otherU_item in unionResult:
+            unionResult.append(otherU_item)
+    return unionResult
+
 
 
 def getSimilarityEfficient(user1, user2):
