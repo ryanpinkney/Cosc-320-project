@@ -81,6 +81,7 @@ def algorithmAforProject(inputData):
     
     # finally returns the recommendation list
     print(recommendation)
+    # print(lookup)
     return recommendation
 
 
@@ -117,7 +118,7 @@ def algorithmBforProject(inputData):
 
     # lookup table for items the target name has already rated or existing recommendations
     lookup = {k: 1 for k in target_likes + target_dislikes}
-    
+
     # for loop checks the max_users number of highest similarity 
     for key in list(sortedScores)[0:max_users]:
         # load the user data
@@ -133,7 +134,6 @@ def algorithmBforProject(inputData):
     # finally returns the recommendation list
     print(recommendation)
     return recommendation
-    return  # to be implemented
 
 
 def getSimilarityNaive(user1, user2):
@@ -164,7 +164,7 @@ def unionNaive(usr1,user2):
     #always assume usr1 is the target user 
     unionResult = usr1
     for otherU_item in user2:
-        if not otherU_item in unionResult:
+        if otherU_item not in unionResult:
             unionResult.append(otherU_item)
     return unionResult
 
@@ -216,4 +216,4 @@ def unionEfficient(arr1, arr2):
 
 
 # methods calling
-algorithmAforProject(basicTestData)
+# algorithmAforProject(basicTestData)
